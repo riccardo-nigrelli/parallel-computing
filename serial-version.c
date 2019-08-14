@@ -28,7 +28,7 @@ int main(void) {
   start = clock();
   printf("\u03C0 \u2248 %f\n", pi_serial_version(1e9));
   end = clock();
-  printf("Tempo versione seriale: %.5f\n", (double)(end - start) / CLOCKS_PER_SEC);
+  printf("Serial version time: %.5f\n", (double)(end - start) / CLOCKS_PER_SEC);
 
   return 0;
 }

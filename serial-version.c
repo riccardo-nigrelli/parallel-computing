@@ -9,16 +9,16 @@ double pi_serial_version(const int interval) {
   srand(SEED);
 
   double x, y;
-  int i, circle = 0;
+  int i, points = 0;
   
   for (i = 0; i < interval; i ++) {
     x = rand() / (double) RAND_MAX;
     y = rand() / (double) RAND_MAX;
     
-    if (x * x + y * y <= 1.0) circle ++;
+    if (x * x + y * y <= 1.0) points ++;
   }
 
-  return (double) circle / interval * 4.0;
+  return (double) points / interval * 4.0;
 }
 
 int main(void) {

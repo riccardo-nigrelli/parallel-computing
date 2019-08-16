@@ -21,14 +21,21 @@ double pi_serial_version(const int interval) {
   return (double) points / interval * 4.0;
 }
 
-int main(void) {
+int main(int argc, char **argv) {
 
-  clock_t start, end;
+  if ( argc == 2 ) {
+    clock_t start, end;
 
-  start = clock();
-  printf("\u03C0 \u2248 %f\n", pi_serial_version(1e9));
-  end = clock();
-  printf("Serial version time: %.5f\n", (double)(end - start) / CLOCKS_PER_SEC);
+    start = clock();
+    printf("\u03C0 \u2248 %f\n", pi_serial_version(atoi(argv[1])));
+    end = clock();
+    printf("Serial version time: %.5f\n", (double)(end - start) / CLOCKS_PER_SEC);
+  }
+  else if ( argc <= 1 ) {
+    printf("ERROR! Specify the number of thread to use\n");
+    exit(1);
+  }
+  else exit(1);
 
   return 0;
 }

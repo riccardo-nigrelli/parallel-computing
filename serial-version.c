@@ -24,12 +24,9 @@ double pi_serial_version(const int interval) {
 int main(int argc, char **argv) {
 
   if ( argc == 2 ) {
-    clock_t start, end;
-
-    start = clock();
+    clock_t start = clock();
     printf("\u03C0 \u2248 %f\n", pi_serial_version(atoi(argv[1])));
-    end = clock();
-    printf("Serial version time: %.5f\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("Serial version time: %.5f\n", (double)(clock() - start) / CLOCKS_PER_SEC);
   }
   else if ( argc <= 1 ) {
     printf("ERROR! Specify the number of thread to use\n");

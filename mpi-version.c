@@ -43,8 +43,11 @@ void pi_mpi_version(int argc, char **argv) {
 }
 
 int main(int argc, char **argv) {
-
-  pi_mpi_version(argc, argv);
+  
+  if ( argc == 2 )
+    pi_mpi_version(argc, argv);
+  else 
+    printf("Error, specify the number of sample to be generate");
 
   return 0;
 }

@@ -1,0 +1,21 @@
+π ≈ 3.141620
+Time elapsed: 3.0515
+π ≈ 3.141621
+Time elapsed: 2.9920
+π ≈ 3.141629
+Time elapsed: 2.8740
+π ≈ 3.141597
+Time elapsed: 3.2023
+π ≈ 3.141583
+Time elapsed: 3.0010
+π ≈ 3.141568
+Time elapsed: 3.1189
+π ≈ 3.141608
+Time elapsed: 2.8250
+π ≈ 3.141609
+Time elapsed: 3.1082
+π ≈ 3.141588
+Time elapsed: 3.0047
+π ≈ 3.141613
+Time elapsed: 3.0706
+

@@ -1,3 +1,4 @@
+#define _XOPEN_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -5,13 +6,13 @@
 
 #define SEED time(NULL)
 
-void pi_mpi_v2_version(int argc, char **argv) {
+int main(int argc, char **argv) {
   
   int rank, size;
   unsigned int seed;
   double x, y, start, end;
   long long int i, all_point, points = 0;
-  long long int sum = 0, *receiver = NULL;
+  long long int sum = 0;
 
   MPI_Init(&argc, &argv);
   start = MPI_Wtime();
@@ -20,13 +21,9 @@ void pi_mpi_v2_version(int argc, char **argv) {
   MPI_Comm_size(MPI_COMM_WORLD, &size);
 
   seed = SEED + rank;
-
-  receiver = malloc(size * sizeof(long long int));
-  if ( receiver == NULL ) {
-    perror("Unable to allocate memory");
-    abort();
-  }
-
+  
+  long long int receiver[size];
+  
   if ( rank != 0 ) {
     for ( i = 0; i < atoll(argv[1]); i++ ) {
       x = (double) rand_r(&seed) / RAND_MAX;
@@ -44,29 +41,30 @@ void pi_mpi_v2_version(int argc, char **argv) {
   MPI_Barrier(MPI_COMM_WORLD);
   end = MPI_Wtime();
 
-  if ( rank == 0 ) {    
-    for ( i = 0; i < size; i++ ) 
-      MPI_Recv((receiver + i), size, MPI_LONG_LONG_INT, MPI_ANY_SOURCE, 1,\
+  if ( rank == 0 ) {
+    for ( i = 0; i < size; i++ )
+      MPI_Recv(&receiver[i], size, MPI_LONG_LONG_INT, MPI_ANY_SOURCE, 1,\
         MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         
-    for ( i = 0; i < size; i++ ) sum += receiver[i];    
+    for ( i = 0; i < size; i++ ) sum += receiver[i];  
 
     printf("\u03C0 \u2248 %Lf\n", (long double) sum / all_point * 4.0);
     printf("Time elapsed: %.4f\n", end - start);
   }
 
   MPI_Finalize();
-  free(receiver);
-}
-
-int main(int argc, char **argv) {
-
-  if ( argc == 2 )
-    pi_mpi_v2_version(argc, argv);
-  else if ( argc <= 1 ) {
-    printf("Error, specify the number of sample to be generate");
-    exit(1);
-  }
-
+  
   return 0;
 }
+
+// int main(int argc, char **argv) {
+
+//   if ( argc == 2 )
+//     pi_mpi_v2_version(argc, argv);
+//   else if ( argc <= 1 ) {
+//     printf("Error, specify the number of sample to be generate");
+//     exit(1);
+//   }
+
+//   return 0;
+// }
